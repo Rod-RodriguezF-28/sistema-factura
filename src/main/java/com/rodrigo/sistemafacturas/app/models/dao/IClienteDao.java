@@ -1,10 +1,8 @@
 package com.rodrigo.sistemafacturas.app.models.dao;
 
 import com.rodrigo.sistemafacturas.app.models.entity.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface IClienteDao extends JpaRepository<Cliente, Long> {
 
-public interface IClienteDao {
-
-    public List<Cliente> findAll();
 }

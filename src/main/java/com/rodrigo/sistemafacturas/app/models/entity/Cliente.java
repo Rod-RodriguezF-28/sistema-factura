@@ -15,11 +15,11 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty
+    @NotEmpty(message = "El campo nombre no puede estar vacio")
     private String nombre;
-    @NotEmpty
+    @NotEmpty(message = "El campo apellido no puede estar vacio")
     private String apellido;
-    @NotEmpty
+    @NotEmpty(message = "El campo email no puede estar vacio")
     @Email
     private String email;
     @Column(name = "create_at")
