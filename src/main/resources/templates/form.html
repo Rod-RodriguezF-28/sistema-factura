@@ -5,30 +5,38 @@
 <header th:replace="~{layout/layout :: header}"></header>
 <h1 class="text-center text-primary pt-3" th:text="${titulo}"></h1>
 <div class="container pt-3">
-    <form method="post" th:action="@{/form}" th:object="${cliente}"
-          class="container p-4 bg-light border rounded-3 w-50">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Escribe tu nombre"
-                   th:errorclass="'form-control alert-danger'"/>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+    <div class="card w-50 mx-auto bg-light">
+        <div class="card-header fw-bold" th:text="${titulo}"></div>
+        <div class="card-body">
+            <form method="post" th:action="@{/form}" th:object="${cliente}">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}"
+                           placeholder="Escribe tu nombre"
+                           th:errorclass="'form-control alert-danger'"/>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                           th:errors="*{nombre}"></small>
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" th:field="*{apellido}"
+                           placeholder="Escribe tu apellido" th:errorclass="'form-control alert-danger'"/>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
+                           th:errors="*{apellido}"></small>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" th:field="*{email}"
+                           placeholder="Escribe tu email"
+                           th:errorclass="'form-control alert-danger'"/>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}"></small>
+                </div>
+                <button type="submit" class="btn" th:classappend="'btn-' + ${estilo}" th:text="${boton}"></button>
+                <a class="btn btn-danger" th:href="@{/}">Cancelar</a>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="apellido" th:field="*{apellido}"
-                   placeholder="Escribe tu apellido" th:errorclass="'form-control alert-danger'"/>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
-                   th:errors="*{apellido}"></small>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Escribe tu email"
-                   th:errorclass="'form-control alert-danger'"/>
-            <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
-        </div>
-        <button type="submit" class="btn btn-primary">Crear cliente</button>
-        <a class="btn btn-danger" th:href="@{/}">Cancelar</a>
-    </form>
+    </div>
 </div>
 <footer th:replace="~{layout/layout :: footer}"></footer>
 </body>

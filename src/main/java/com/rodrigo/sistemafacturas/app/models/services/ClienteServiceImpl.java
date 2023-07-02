@@ -2,6 +2,8 @@ package com.rodrigo.sistemafacturas.app.models.services;
 
 import com.rodrigo.sistemafacturas.app.models.dao.IClienteDao;
 import com.rodrigo.sistemafacturas.app.models.entity.Cliente;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,12 @@ public class ClienteServiceImpl implements IClienteService{
     @Transactional(readOnly = true)
     public List<Cliente> findAll() {
         return clienteDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Cliente> findAll(Pageable pageable) {
+        return clienteDao.findAll(pageable);
     }
 
     @Override
