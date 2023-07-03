@@ -12,6 +12,10 @@ public class ItemFactura implements Serializable {
     private Long id;
     private Integer cantidad;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
+
     public Long getId() {
         return id;
     }
@@ -28,8 +32,8 @@ public class ItemFactura implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Long calcularImporte() {
-        return cantidad.longValue();
+    public Double calcularImporte() {
+        return cantidad.doubleValue() * producto.getPrecio();
     }
 
     @Serial
