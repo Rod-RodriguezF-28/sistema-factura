@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<h1 class="text-primary text-center pt-5" th:text="${titulo}"></h1>
+<div class="container py-4 w-75">
+    <div class="card mx-auto bg-light mb-5">
+        <div class="card-header fw-bold" th:text="${titulo}"></div>
+        <div class="card-body">
+             <h4 class="card-title">
+                 <a class="btn btn-success btn-xs mb-4" th:href="@{/form}">
+                     <i class="bi bi-person-plus"></i> Crear cliente
+                 </a>
+            </h4>
+        </div>
+    </div>
+</div>
+<div class="mt-5">
+    <footer th:replace="~{layout/layout :: footer}"></footer>
+</div>
+</body>
+</html>

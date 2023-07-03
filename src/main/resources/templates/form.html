@@ -8,7 +8,7 @@
     <div class="card w-50 mx-auto bg-light">
         <div class="card-header fw-bold" th:text="${titulo}"></div>
         <div class="card-body">
-            <form method="post" th:action="@{/form}" th:object="${cliente}">
+            <form method="post" th:action="@{/form}" th:object="${cliente}" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" th:field="*{nombre}"
@@ -31,6 +31,10 @@
                            th:errorclass="'form-control alert-danger'"/>
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
                            th:errors="*{email}"></small>
+                </div>
+                <div class="mb-3">
+                    <label for="file" class="form-label">Foto</label> <input
+                        class="form-control" type="file" name="file" id="file">
                 </div>
                 <button type="submit" class="btn" th:classappend="'btn-' + ${estilo}" th:text="${boton}"></button>
                 <a class="btn btn-danger" th:href="@{/}">Cancelar</a>
