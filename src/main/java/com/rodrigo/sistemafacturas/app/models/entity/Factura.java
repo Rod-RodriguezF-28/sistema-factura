@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "facturas")
 public class Factura implements Serializable {
@@ -18,6 +21,14 @@ public class Factura implements Serializable {
     private Date createAt;
     @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "factura_id")
+    private List<ItemFactura> items;
+
+    public Factura() {
+        this.items = new ArrayList<>();
+    }
 
     @PrePersist
     public void prePersist() {
@@ -64,6 +75,17 @@ public class Factura implements Serializable {
         this.cliente = cliente;
     }
 
+    public List<ItemFactura> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemFactura> items) {
+        this.items = items;
+    }
+
+    public void addItemFactura(ItemFactura item) {
+        this.items.add(item);
+    }
 
     @Serial
     private static final long serialVersionUID = 1L;
