@@ -22,7 +22,9 @@
                         <th scope="col">Apellido</th>
                         <th scope="col">Email</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Acciones</th>
+                        <th class="text-center">Crear factura</th>
+                        <th class="text-center">Editar cliente</th>
+                        <th class="text-center">Eliminar cliente</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,15 +35,19 @@
                         <td th:text="${cliente.apellido}"></td>
                         <td th:text="${cliente.email}"></td>
                         <td th:text="${cliente.createAt}"></td>
-                        <td>
-                            <a class="btn btn-warning btn-sm me-1" th:href="@{/form/{id}(id=${cliente.id})}">
+                        <td class="text-center">
+                            <a class="btn btn-success btn-xs" th:href="@{/factura/form/{id}(id=${cliente.id})}"><i
+                                    class="bi bi-plus"></i></a>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-warning" th:href="@{/form/{id}(id=${cliente.id})}">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a class="btn btn-danger btn-sm"
-                               th:href="@{/delete/{id}(id=${cliente.id})}"
-                               onclick="return confirm('¿Está seguro de eliminar el cliente?')">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                        </td>
+                        <td class="text-center"><a class="btn btn-danger" th:href="@{/eliminar/{id}(id=${cliente.id})}"
+                                                   onclick="return confirm('¿Está seguro de eliminar el cliente?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
                         </td>
                     </tr>
                     </tbody>

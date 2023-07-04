@@ -147,7 +147,7 @@ public class ClienteController {
         return "redirect:/";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/eliminar/{id}")
     public String delete(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
         if (id > 0) {
             Cliente cliente = clienteService.findOne(id);

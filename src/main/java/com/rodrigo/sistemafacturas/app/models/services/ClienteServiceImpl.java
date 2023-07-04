@@ -1,7 +1,9 @@
 package com.rodrigo.sistemafacturas.app.models.services;
 
 import com.rodrigo.sistemafacturas.app.models.dao.IClienteDao;
+import com.rodrigo.sistemafacturas.app.models.dao.IProductoDao;
 import com.rodrigo.sistemafacturas.app.models.entity.Cliente;
+import com.rodrigo.sistemafacturas.app.models.entity.Producto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,9 +15,11 @@ import java.util.List;
 public class ClienteServiceImpl implements IClienteService{
 
     private final IClienteDao clienteDao;
+    private final IProductoDao productoDao;
 
-    public ClienteServiceImpl(IClienteDao clienteDao) {
+    public ClienteServiceImpl(IClienteDao clienteDao, IProductoDao productoDao) {
         this.clienteDao = clienteDao;
+        this.productoDao = productoDao;
     }
 
     @Override
@@ -46,5 +50,11 @@ public class ClienteServiceImpl implements IClienteService{
     @Transactional
     public void delete(Long id) {
         clienteDao.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> findByNombre(String term) {
+        return productoDao.findByNombre(term);
     }
 }

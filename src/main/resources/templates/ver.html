@@ -4,12 +4,14 @@
 <body>
 <header th:replace="~{layout/layout :: header}"></header>
 <h1 class="text-primary text-center pt-5" th:text="${titulo}"></h1>
-<div class="container py-4 w-75">
+<div class="container py-4" style="width: 60%;">
     <div class="card mx-auto bg-light mb-5">
         <div class="card-header fw-bold" th:text="${titulo}"></div>
         <div class="card-body">
-            <h4 class="card-title">
-                <a class="btn btn-success btn-xs" th:href="@{/}"><i class="bi bi-arrow-left me-2"></i>Volver</a>
+            <h4 class="card-title pt-3 pb-3">
+                <a class="btn btn-secondary btn-xs" th:href="@{/}"><i class="bi bi-arrow-left me-2"></i>Volver</a>
+                <a class="btn btn-success btn-xs" th:href="@{/factura/form/{id}(id=${cliente.id})}"><i
+                        class="bi bi-plus"></i>Crear Factura</a>
             </h4>
             <img th:if="${cliente.foto != null and #strings.length(cliente.foto) > 0}"
                  class="img-thumbnail rounded float-start" style="max-width: 250px;"

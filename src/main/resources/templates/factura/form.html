@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<h1 class="text-primary text-center pt-5" th:text="${titulo}"></h1>
+<div class="container py-4 w-50">
+    <div class="card mx-auto bg-light mb-5">
+        <div class="card-header fw-bold" th:text="${titulo}"></div>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a class="btn btn-secondary btn-xs" th:href="@{/}"><i class="bi bi-arrow-left me-2"></i>Volver</a>
+            </h4>
+
+            <form th:action="@{/factura/form/}" th:object="${factura}" method="post">
+
+                <div class="mb-3">
+                    <label for="cliente" class="form-label">Cliente:</label>
+                    <input class="form-control form-control-sm" id="cliente"
+                           th:value="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"
+                           disabled="disabled">
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <input type="text" class="form-control form-control-sm" id="descripcion"
+                           th:field="*{descripcion}"
+                           th:errorclass="'form-control is-invalid'">
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('descripcion')}"
+                         th:errors="*{descripcion}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="textArea" class="form-label">Observación:</label>
+                    <textarea class="form-control form-control-sm" rows="5" id="textArea"
+                              th:field="*{observacion}"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="buscar_producto" class="form-label">Buscar
+                        producto:</label> <input type="text" name="buscar_producto"
+                                                 id="buscar_producto" class="form-control form-control-sm">
+                </div>
+
+                <table th:replace="~{factura/plantilla-items :: itemsFactura}"></table>
+
+
+                <button type="submit" class="btn btn-primary" th:text="${titulo}"></button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="mt-5">
+    <footer th:replace="~{layout/layout :: footer}"></footer>
+</div>
+<script th:replace="~{factura/js/autocomplete-productos :: javascript}"></script>
+</body>
+</html>

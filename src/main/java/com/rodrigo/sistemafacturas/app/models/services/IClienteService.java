@@ -1,6 +1,7 @@
 package com.rodrigo.sistemafacturas.app.models.services;
 
 import com.rodrigo.sistemafacturas.app.models.entity.Cliente;
+import com.rodrigo.sistemafacturas.app.models.entity.Producto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,4 +18,6 @@ public interface IClienteService {
     Cliente findOne(Long id);
 
     void delete(Long id);
+
+    List<Producto> findByNombre(String term);
 }
