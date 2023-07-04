@@ -41,10 +41,37 @@
             </div>
         </div>
     </nav>
-    <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-    <div class="alert alert-danger" th:if="${danger != null}" th:text="${danger}"></div>
-    <div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
-    <div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+    <!--    <div class="alert alert-danger" th:if="${success != null}" th:text="${success}"></div>-->
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${success != null}">
+
+        <strong th:text="${success}"></strong>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!--    <div class="alert alert-danger" th:if="${danger != null}" th:text="${danger}"></div>-->
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${danger!= null}">
+
+        <strong th:text="${danger}"></strong>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!--    <div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>-->
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${warning != null}">
+
+        <strong th:text="${warning}"></strong>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+
+    <!--    <div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>-->
+    <div class="alert alert-info alert-dismissible fade show" role="alert" th:if="${info != null}"><strong
+            th:text="${info}"></strong>
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 </header>
 
 <footer th:fragment="footer" class="bg-dark text-white text-center py-3 fixed-bottom">
