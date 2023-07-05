@@ -2,10 +2,15 @@ package com.rodrigo.sistemafacturas.app.controllers;
 
 import com.rodrigo.sistemafacturas.app.models.entity.Cliente;
 import com.rodrigo.sistemafacturas.app.models.entity.Factura;
+import com.rodrigo.sistemafacturas.app.models.entity.ItemFactura;
 import com.rodrigo.sistemafacturas.app.models.entity.Producto;
 import com.rodrigo.sistemafacturas.app.models.services.IClienteService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -44,5 +49,38 @@ public class FacturaController {
     @GetMapping(value = "/cargar-productos/{term}", produces = {"application/json"})
     public @ResponseBody List<Producto> cargarProductos(@PathVariable String term) {
         return clienteService.findByNombre(term);
+    }
+
+    @PostMapping("/form")
+    public String guardar(@Valid Factura factura,
+                          BindingResult result,
+                          Model model,
+                          @RequestParam(name = "item_id[]", required = false) Long[] itemId,
+                          @RequestParam(name = "cantidad[]", required = false) Integer[] cantidad,
+                          RedirectAttributes flash, SessionStatus status) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("titulo", "Crear factura");
+            return "factura/form";
+        }
+
+        if (itemId == null || itemId.length == 0) {
+            model.addAttribute("titulo", "Crear factura");
+            model.addAttribute("danger", "La factura no puede no tener productos!");
+            return "factura/form";
+        }
+
+        for (int i=0; i < itemId.length; i++) {
+            Producto producto = clienteService.findProductoById(itemId[i]);
+            ItemFactura linea = new ItemFactura();
+            linea.setCantidad(cantidad[i]);
+            linea.setProducto(producto);
+            factura.addItemFactura(linea);
+        }
+
+        clienteService.saveFactura(factura);
+        status.setComplete();
+        flash.addFlashAttribute("success", "Factura creada con exito!");
+        return "redirect:/ver/" + factura.getCliente().getId();
     }
 }

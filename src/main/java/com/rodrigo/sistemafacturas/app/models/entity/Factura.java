@@ -1,6 +1,7 @@
 package com.rodrigo.sistemafacturas.app.models.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class Factura implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "La descripción no puede ser vacia!")
     private String descripcion;
     private String observacion;
     @Temporal(TemporalType.DATE)

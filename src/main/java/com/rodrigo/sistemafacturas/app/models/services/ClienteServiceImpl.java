@@ -1,8 +1,10 @@
 package com.rodrigo.sistemafacturas.app.models.services;
 
 import com.rodrigo.sistemafacturas.app.models.dao.IClienteDao;
+import com.rodrigo.sistemafacturas.app.models.dao.IFacturaDao;
 import com.rodrigo.sistemafacturas.app.models.dao.IProductoDao;
 import com.rodrigo.sistemafacturas.app.models.entity.Cliente;
+import com.rodrigo.sistemafacturas.app.models.entity.Factura;
 import com.rodrigo.sistemafacturas.app.models.entity.Producto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +18,12 @@ public class ClienteServiceImpl implements IClienteService{
 
     private final IClienteDao clienteDao;
     private final IProductoDao productoDao;
+    private final IFacturaDao facturaDao;
 
-    public ClienteServiceImpl(IClienteDao clienteDao, IProductoDao productoDao) {
+    public ClienteServiceImpl(IClienteDao clienteDao, IProductoDao productoDao, IFacturaDao facturaDao) {
         this.clienteDao = clienteDao;
         this.productoDao = productoDao;
+        this.facturaDao = facturaDao;
     }
 
     @Override
@@ -56,5 +60,17 @@ public class ClienteServiceImpl implements IClienteService{
     @Transactional(readOnly = true)
     public List<Producto> findByNombre(String term) {
         return productoDao.findByNombre(term);
+    }
+
+    @Override
+    @Transactional
+    public void saveFactura(Factura factura) {
+        facturaDao.save(factura);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Producto findProductoById(Long id) {
+        return productoDao.findById(id).orElse(null);
     }
 }

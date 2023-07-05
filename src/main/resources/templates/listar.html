@@ -9,7 +9,7 @@
         <div class="card-header fw-bold" th:text="${titulo}"></div>
         <div class="card-body">
             <h4 class="card-title">
-                <a class="btn btn-success btn-xs mb-4" th:href="@{/form}">
+                <a class="btn btn-success btn-sm mb-4" th:href="@{/form}">
                     <i class="bi bi-person-plus"></i> Crear cliente
                 </a>
             </h4>
@@ -36,7 +36,7 @@
                         <td th:text="${cliente.email}"></td>
                         <td th:text="${cliente.createAt}"></td>
                         <td class="text-center">
-                            <a class="btn btn-success btn-xs" th:href="@{/factura/form/{id}(id=${cliente.id})}"><i
+                            <a class="btn btn-success" th:href="@{/factura/form/{id}(id=${cliente.id})}"><i
                                     class="bi bi-plus"></i></a>
                         </td>
                         <td class="text-center">
