@@ -1,15 +1,15 @@
 package com.rodrigo.sistemafacturas.app;
 
 import com.rodrigo.sistemafacturas.app.auth.handler.LoginSuccessHandler;
+import com.rodrigo.sistemafacturas.app.models.services.JpaUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -18,9 +18,16 @@ public class WebSecurityConfig {
 
     private final LoginSuccessHandler loginSuccessHandler;
 
+    private final JpaUserDetailsService userDetailsService;
 
-    public WebSecurityConfig(LoginSuccessHandler loginSuccessHandler) {
+    private final BCryptPasswordEncoder passwordEncoder;
+
+
+    public WebSecurityConfig(LoginSuccessHandler loginSuccessHandler, JpaUserDetailsService userDetailsService,
+                             BCryptPasswordEncoder passwordEncoder) {
         this.loginSuccessHandler = loginSuccessHandler;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
@@ -28,21 +35,29 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
 
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-        manager.createUser(User.withUsername("user")
-                .password(passwordEncoder().encode("user"))
-                .roles("USER").build());
-
-        manager.createUser(User.withUsername("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN", "USER").build());
-
-        return manager;
+    @Autowired
+    public void userDetailsService(AuthenticationManagerBuilder build) throws Exception {
+        build.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
     }
+
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//
+//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//
+//        manager.createUser(User.withUsername("user")
+//                .password(passwordEncoder().encode("user"))
+//                .roles("USER").build());
+//
+//        manager.createUser(User.withUsername("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN", "USER").build());
+//
+//        return manager;
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
