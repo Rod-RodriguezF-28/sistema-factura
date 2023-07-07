@@ -6,6 +6,7 @@ import com.rodrigo.sistemafacturas.app.models.entity.ItemFactura;
 import com.rodrigo.sistemafacturas.app.models.entity.Producto;
 import com.rodrigo.sistemafacturas.app.models.services.IClienteService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Map;
 
+@Secured("ROLE_ADMIN")
 @Controller
 @RequestMapping("/factura")
 @SessionAttributes("factura")

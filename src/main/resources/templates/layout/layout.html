@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <!-- Bootstrap CSS -->
@@ -36,6 +36,27 @@
                     <li class="nav-item">
                         <a th:class="${ 'nav-link' + ' ' + activeForm}" aria-current="page" th:href="@{/form}">Agregar
                             clientes</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li sec:authorize="!isAuthenticated()"><a class="btn btn-outline-primary" th:href="@{/login}">Sign
+                        in</a></li>
+
+                    <li sec:authorize="isAuthenticated()" class="dropdown">
+                        <a class="btn btn-outline-primary dropdown-toggle" href="#"
+                           role="button" id="dropdownMenuLink"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <form id="logoutForm" th:action="@{/logout}" method="post">
+                                <button class="dropdown-item" onclick="document.getElementById('logoutForm').submit();"
+                                        type="submit">Sign
+                                    out
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -75,6 +96,8 @@
 </header>
 
 <footer th:fragment="footer" class="bg-dark text-white text-center py-3 fixed-bottom">
+    <p sec:authorize="isAuthenticated()">Usuario logeado: <span sec:authentication="name"></span> | Roles: <span
+            sec:authentication="principal.authorities"></span></p>
     <span class="text-light">© 2023 Rodrigo Rodriguez. Todos los derechos reservados</span>
     <script th:src="@{/js/bootstrap.bundle.min.js}"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
