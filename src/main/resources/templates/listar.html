@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head th:replace="~{layout/layout :: head}"></head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8"/>
+</head>
 <body>
+<div id="i18n_eliminar_cliente" th:text="#{text.cliente.eliminarOk}" style="display: none;"></div>
 <header th:replace="~{layout/layout :: header}"></header>
 <h1 class="text-primary text-center pt-5" th:text="${titulo}"></h1>
 <div class="container py-4 w-75">
@@ -10,7 +14,8 @@
         <div class="card-body">
             <h4 class="card-title">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-sm mb-4" th:href="@{/form}">
-                    <i class="bi bi-person-plus"></i> Crear cliente
+                    <i class="bi bi-person-plus"></i>
+                    <span th:text="#{text.cliente.crear}"></span>
                 </a>
             </h4>
             <div class="table-responsive">
@@ -18,13 +23,19 @@
                     <thead>
                     <tr>
                         <th sec:authorize="hasRole('ROLE_USER')" scope="col">id</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Fecha</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')" class="text-center">Crear factura</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')" class="text-center">Editar cliente</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')" class="text-center">Eliminar cliente</th>
+                        <th scope="col" th:text="#{text.cliente.nombre}">Nombre</th>
+                        <th scope="col" th:text="#{text.cliente.apellido}">Apellido</th>
+                        <th scope="col" th:text="#{text.cliente.email}">Email</th>
+                        <th scope="col" th:text="#{text.cliente.createAt}">Fecha</th>
+                        <th th:text="#{text.cliente.factura.crear}" sec:authorize="hasRole('ROLE_ADMIN')"
+                            class="text-center">Crear factura
+                        </th>
+                        <th th:text="#{text.cliente.editar}" sec:authorize="hasRole('ROLE_ADMIN')" class="text-center">
+                            Editar cliente
+                        </th>
+                        <th th:text="#{text.cliente.eliminar}" sec:authorize="hasRole('ROLE_ADMIN')"
+                            class="text-center">Eliminar cliente
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,7 +58,7 @@
                         </td>
                         <td sec:authorize="hasRole('ROLE_ADMIN')" class="text-center"><a class="btn btn-danger"
                                                                                          th:href="@{/eliminar/{id}(id=${cliente.id})}"
-                                                                                         onclick="return confirm('¿Está seguro de eliminar el cliente?')">
+                                                                                         onclick="return confirm(document.getElementById('i18n_eliminar_cliente').innerHTML);">
                             <i class="bi bi-trash"></i>
                         </a>
                         </td>

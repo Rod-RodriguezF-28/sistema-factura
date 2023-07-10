@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{layout/layout :: head}"></head>
 <body>
+<div id="i18n_eliminar_factura" th:text="#{text.cliente.factura.eliminarOk}" style="display: none;"></div>
 <header th:replace="~{layout/layout :: header}"></header>
 <h1 class="text-primary text-center pt-5" th:text="${titulo}"></h1>
 <div class="container py-4" style="width: 60%;">
@@ -9,9 +11,15 @@
         <div class="card-header fw-bold" th:text="${titulo}"></div>
         <div class="card-body">
             <h4 class="card-title pt-3 pb-3">
-                <a class="btn btn-secondary btn-xs" th:href="@{/}"><i class="bi bi-arrow-left me-2"></i>Volver</a>
-                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-xs" th:href="@{/factura/form/{id}(id=${cliente.id})}"><i
-                        class="bi bi-plus"></i>Crear Factura</a>
+                <a class="btn btn-secondary btn-xs" th:href="@{/}">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    <span th:text="#{text.global.volver}">Volver</span>
+                </a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success btn-xs"
+                   th:href="@{/factura/form/{id}(id=${cliente.id})}">
+                    <i class="bi bi-plus"></i>
+                    <span th:text="#{text.cliente.factura.crear}"></span>
+                </a>
             </h4>
             <img th:if="${cliente.foto != null and #strings.length(cliente.foto) > 0}"
                  class="img-thumbnail rounded float-start" style="max-width: 250px;"
@@ -24,17 +32,17 @@
             </ul>
 
             <div class="alert alert-info my-4" th:if="${#lists.isEmpty(cliente.facturas)}"
-                 th:text="'No hay facturas asingandas para el cliente: ' + ${cliente.nombre} + ' ' + ${cliente.apellido}"></div>
+                 th:text="#{text.cliente.detalle.no.facturas} + ' ' + ${cliente.nombre} + ' ' + ${cliente.apellido}"></div>
 
             <table class="table table-striped table-hover my-4" th:if="${not #lists.isEmpty(cliente.facturas)}">
                 <thead class="table-dark">
                 <tr>
-                    <th>Folio</th>
-                    <th>Descripcion</th>
-                    <th>Fecha</th>
-                    <th>Total</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">Detalle</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+                    <th th:text="#{text.cliente.factura.folio}">folio</th>
+                    <th th:text="#{text.cliente.factura.descripcion}">descripción</th>
+                    <th th:text="#{text.cliente.factura.fecha}">fecha</th>
+                    <th th:text="#{text.cliente.factura.total}">total</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{text.cliente.factura.detalle}">Detalle</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{text.cliente.factura.eliminar}">Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,12 +52,12 @@
                     <td th:text="${factura.createAt}"></td>
                     <td th:text="${factura.total}"></td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-info btn-sm"
-                           th:href="@{/factura/ver/{id}(id=${factura.id})}"><i
+                                                                 th:href="@{/factura/ver/{id}(id=${factura.id})}"><i
                             class="bi bi-eye-fill"></i>
                     </a></td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-sm"
-                           th:href="@{/factura/eliminar/{id}(id=${factura.id})}"
-                           onclick="return confirm('¿Está seguro de eliminar la factura?')">
+                                                                 th:href="@{/factura/eliminar/{id}(id=${factura.id})}"
+                                                                 onclick="return confirm(document.getElementById('i18n_eliminar_factura').innerHTML);">
                         <i class="bi bi-trash"></i>
                     </a></td>
                 </tr>

@@ -14,30 +14,33 @@
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 pt-5">
                 <form th:action="@{/login}" method="post">
                     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                        <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+                        <p class="lead fw-normal mb-0 me-3" th:text="#{text.login.titulo}"></p>
                     </div>
 
                     <!-- Email input -->
-                    <div class="form-outline mb-4">
+                    <div class="form-outline mb-4 mt-3">
                         <input type="text" id="username" name="username" class="form-control form-control-lg"
-                               placeholder="Enter a valid username" autofocus required/>
+                               th:placeholder="#{text.login.username}" autofocus required/>
                         <label class="form-label" for="username">Username</label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
                         <input type="password" id="password" name="password" class="form-control form-control-lg"
-                               placeholder="Enter password" required/>
+                               th:placeholder="#{text.login.password}" required/>
                         <label class="form-label" for="password">Password</label>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button type="submit" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;" th:text="#{text.login.boton}">Login
                         </button>
-                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#"
-                                                                                          class="link-danger">Register</a>
-                        </p>
+                        <div class="row">
+                            <p class="small fw-bold mt-2 pt-1 mb-0 col-4" th:text="#{text.login.register}">Don't have an
+                                account?
+                            </p><a href="#"
+                                   class="link-danger col-3 fw-bold mt-1 pt-1 mb-0" th:text="#{text.login.crear}">Register</a>
+                        </div>
                     </div>
 
                 </form>

@@ -10,7 +10,7 @@
         <div class="card-body">
             <form method="post" th:action="@{/form}" th:object="${cliente}" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
+                    <label for="nombre" class="form-label" th:text="#{text.cliente.nombre}">Nombre</label>
                     <input type="text" class="form-control" id="nombre" th:field="*{nombre}"
                            placeholder="Escribe tu nombre"
                            th:errorclass="'form-control alert-danger'"/>
@@ -18,14 +18,14 @@
                            th:errors="*{nombre}"></small>
                 </div>
                 <div class="mb-3">
-                    <label for="apellido" class="form-label">Apellido</label>
+                    <label for="apellido" class="form-label" th:text="#{text.cliente.apellido}">Apellido</label>
                     <input type="text" class="form-control" id="apellido" th:field="*{apellido}"
                            placeholder="Escribe tu apellido" th:errorclass="'form-control alert-danger'"/>
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
                            th:errors="*{apellido}"></small>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label" th:text="#{text.cliente.email}">Email</label>
                     <input type="email" class="form-control" id="email" th:field="*{email}"
                            placeholder="Escribe tu email"
                            th:errorclass="'form-control alert-danger'"/>
@@ -33,11 +33,11 @@
                            th:errors="*{email}"></small>
                 </div>
                 <div class="mb-3">
-                    <label for="file" class="form-label">Foto</label> <input
+                    <label for="file" class="form-label" th:text="#{text.cliente.foto}">Foto</label> <input
                         class="form-control" type="file" name="file" id="file">
                 </div>
                 <button type="submit" class="btn" th:classappend="'btn-' + ${estilo}" th:text="${boton}"></button>
-                <a class="btn btn-danger" th:href="@{/}">Cancelar</a>
+                <a class="btn btn-danger" th:href="@{/}" th:text="#{text.cliente.form.boton.cancelar}">Cancelar</a>
             </form>
         </div>
     </div>

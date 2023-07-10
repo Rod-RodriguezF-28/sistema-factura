@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <!-- Bootstrap CSS -->
@@ -19,7 +20,7 @@
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">
+            <a class="navbar-brand" th:href="@{/}" th:text="#{text.menu.factura}">
                 <i class="bi bi-file-earmark-text"></i>
                 Facturas
             </a>
@@ -31,15 +32,17 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a th:class="${ 'nav-link' + ' ' + activeListar}" aria-current="page"
-                           th:href="@{/}">Clientes</a>
+                           th:href="@{/}" th:text="#{text.menu.home}">Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a th:class="${ 'nav-link' + ' ' + activeForm}" aria-current="page" th:href="@{/form}">Agregar
+                        <a th:text="#{text.menu.agregar}" th:class="${ 'nav-link' + ' ' + activeForm}"
+                           aria-current="page" th:href="@{/form}">Agregar
                             clientes</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li sec:authorize="!isAuthenticated()"><a class="btn btn-outline-primary" th:href="@{/login}">Sign
+                    <li sec:authorize="!isAuthenticated()"><a th:text="#{text.menu.signin}"
+                                                              class="btn btn-outline-primary" th:href="@{/login}">Sign
                         in</a></li>
 
                     <li sec:authorize="isAuthenticated()" class="dropdown">
@@ -52,11 +55,23 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <form id="logoutForm" th:action="@{/logout}" method="post">
                                 <button class="dropdown-item" onclick="document.getElementById('logoutForm').submit();"
-                                        type="submit">Sign
+                                        th:text="#{text.menu.signout}" type="submit">Sign
                                     out
                                 </button>
                             </form>
                         </div>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mx-4">
+                    <li class="nav-item mx-1"><a th:text="#{text.locale.es}" class="btn btn-outline-success"
+                                                 th:href="@{/locale(lang=es_ES)}">ES</a>
+                    </li>
+                    <li class="nav-item mx-1"><a th:text="#{text.locale.en}" class="btn btn-outline-success"
+                                                 th:href="@{/locale(lang=en_US)}">EN</a>
+                    </li>
+                    <li class="nav-item mx-1"><a th:text="#{text.locale.de}" class="btn btn-outline-success"
+                                                 th:href="@{/locale(lang=de_DE)}">DE</a>
                     </li>
                 </ul>
             </div>
@@ -96,9 +111,14 @@
 </header>
 
 <footer th:fragment="footer" class="bg-dark text-white text-center py-3 fixed-bottom">
-    <p sec:authorize="isAuthenticated()">Usuario logeado: <span sec:authentication="name"></span> | Roles: <span
-            sec:authentication="principal.authorities"></span></p>
-    <span class="text-light">© 2023 Rodrigo Rodriguez. Todos los derechos reservados</span>
+    <p sec:authorize="isAuthenticated()">
+        <span th:utext="#{text.footer.user}"></span>
+        <span sec:authentication="name"></span> |
+        <span th:text="#{text.footer.roles}">Roles:</span>
+        <span sec:authentication="principal.authorities"></span>
+    </p>
+    <span class="text-light"
+          th:text="#{text.footer.powered}">© 2023 Rodrigo Rodriguez. Todos los derechos reservados</span>
     <script th:src="@{/js/bootstrap.bundle.min.js}"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossOrigin="anonymous"></script>

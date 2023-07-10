@@ -62,7 +62,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/", "/css/**", "/js/**", "/img/**").permitAll()
+                        .requestMatchers("/", "/css/**", "/js/**", "/img/**", "/locale").permitAll()
 //                        .requestMatchers("/ver/**").hasAnyRole("USER")
 //                        .requestMatchers("/uploads/**").hasAnyRole("USER")
 //                        .requestMatchers("/form/**").hasAnyRole("ADMIN")
