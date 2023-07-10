@@ -88,7 +88,7 @@ public class FacturaController {
 
         if (itemId == null || itemId.length == 0) {
             model.addAttribute("titulo", messageSource.getMessage("text.factura.form.titulo", null, locale));
-            model.addAttribute("error", messageSource.getMessage("text.factura.flash.lineas.error", null, locale));
+            model.addAttribute("danger", messageSource.getMessage("text.factura.flash.lineas.error", null, locale));
             return "factura/form";
         }
 
@@ -116,7 +116,7 @@ public class FacturaController {
             return "redirect:/ver/" + factura.getCliente().getId();
         }
 
-        flash.addFlashAttribute("error", messageSource.getMessage("text.factura.flash.db.error", null, locale));
+        flash.addFlashAttribute("danger", messageSource.getMessage("text.factura.flash.db.error", null, locale));
         return "redirect:/";
     }
 }
