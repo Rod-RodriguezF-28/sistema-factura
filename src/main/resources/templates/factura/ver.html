@@ -9,12 +9,14 @@
         <div class="card-header fw-bold" th:text="${titulo}"></div>
         <div class="card-body">
             <h4 class="card-title">
-                <a class="btn btn-success btn-xs mb-4" th:href="@{/ver/{id}(id=${factura.cliente.id})}">
+                <a class="btn btn-secondary btn-xs mb-4" th:href="@{/ver/{id}(id=${factura.cliente.id})}">
                     <i class="bi bi-arrow-left me-2"></i>
                     <span th:text="#{text.global.volver}">Volver</span>
                 </a>
                 <a class="btn btn-danger btn-xs mb-4 float-end"
                    th:href="@{'/factura/ver/' + ${factura.id}(format=pdf)}">PDF</a>
+                <a class="btn btn-success btn-xs mb-4 float-end mx-1"
+                   th:href="@{'/factura/ver/' + ${factura.id}(format=xlsx)}">Excel</a>
 
             </h4>
 
